@@ -8,12 +8,16 @@ import { MaterialModuleModule } from './shared/material-module.module';
 import { AppComponent } from './app.component';
 import { NotesComponent } from './components/notes/notes.component';
 import { MenusComponent } from './components/menus/menus.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { NoteComponent } from './components/note/note.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotesComponent,
-    MenusComponent
+    MenusComponent,
+    ToolbarComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,

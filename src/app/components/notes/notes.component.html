@@ -1,0 +1,20 @@
+<mat-drawer-container>
+  <!-- side menu start -->
+  <mat-drawer #drawer mode="side" opened>
+    <mat-toolbar color="primary">
+      <span>Notes</span>
+    </mat-toolbar>
+    <app-menus></app-menus>
+  </mat-drawer>
+  <!-- side menu end -->
+
+  <!-- main content start -->
+  <mat-drawer-content>
+    <app-toolbar (menuToggle)="drawer.toggle()"></app-toolbar>
+    <div class="body-container">
+      <h1 class="page-name"></h1>
+      <app-note></app-note>
+    </div>
+  </mat-drawer-content>
+  <!-- main content end -->
+</mat-drawer-container>

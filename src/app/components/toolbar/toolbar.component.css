@@ -1,0 +1,13 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-form-field .mat-icon {
+  font-size: 100%;
+  line-height: normal;
+}
+
+.mat-icon-button {
+  margin-right: 10px;
+  margin-left: 10px;
+}

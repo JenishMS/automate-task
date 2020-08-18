@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="toggle-icon" (click)="menuToggle.emit()" aria-label="Example icon-button with menu icon">
+   <mat-icon>menu</mat-icon>
+  </button>
+  <span>Notes App</span>
+  <div class="spacer"></div>
+  <button mat-icon-button aria-label="Create new note">
+    <mat-icon>create</mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Create new note">
+    <mat-icon>delete</mat-icon>
+  </button>
+ <!-- search box -->
+  <mat-form-field floatLabel="never">
+    <mat-label class="search-lbl">Search</mat-label>
+    <mat-icon matPrefix class="search-icon">search</mat-icon>
+    <input matInput placeholder="Search" value="">
+  </mat-form-field>
+</mat-toolbar>
