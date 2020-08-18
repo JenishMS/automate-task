@@ -4,7 +4,7 @@
     <mat-toolbar color="primary">
       <span>Notes</span>
     </mat-toolbar>
-    <app-menus></app-menus>
+    <app-menus (emitedNote)="selectedNote($event)"></app-menus>
   </mat-drawer>
   <!-- side menu end -->
 
@@ -13,7 +13,7 @@
     <app-toolbar (menuToggle)="drawer.toggle()"></app-toolbar>
     <div class="body-container">
       <h1 class="page-name"></h1>
-      <app-note></app-note>
+      <app-note [selectedNote]="note"></app-note>
     </div>
   </mat-drawer-content>
   <!-- main content end -->

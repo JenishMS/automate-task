@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Note } from 'src/app/models/note.model';
+import { NotesService } from 'src/app/services/notes.service';
 
 @Component({
   selector: 'app-note',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./note.component.css']
 })
 export class NoteComponent implements OnInit {
-  dateTime: any = new Date();
-  constructor() { }
+  @Input() selectedNote: Note;
+  @ViewChild('title') title: HTMLTextAreaElement;
+  constructor(private noteServ: NotesService) { }
 
   ngOnInit(): void {
+    this.selectedNote = new Note();
+    console.log(this.selectedNote);
+  }
+
+  changeNote() {
+    this.selectedNote.updatedOn = new Date();
+    this.noteServ.updateNote(this.selectedNote.noteId, this.selectedNote);
   }
 
 }

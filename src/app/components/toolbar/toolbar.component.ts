@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { NotesService } from '../../services/notes.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +8,18 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
   @Output() menuToggle = new EventEmitter();
-  constructor() { }
+  constructor(private noteServ: NotesService) { }
 
   ngOnInit(): void {
+  }
+
+  /**
+   * create new note
+   *
+   * @memberof ToolbarComponent
+   */
+  createNote() {
+    this.noteServ.addNote();
   }
 
 }

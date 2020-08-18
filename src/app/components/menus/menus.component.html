@@ -1,21 +1,6 @@
 <mat-nav-list>
-  <mat-list-item>
-    <h3 matLine>New Note Hello You I am Jenish MS</h3>
-    <p matLine>5.58 PM <span class="note">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta quia, quod, a architecto necessitatibus ducimus omnis atque impedit ab nam exercitationem aperiam similique itaque nemo expedita esse error dignissimos ex!</span></p>
-  </mat-list-item>
-
-  <mat-list-item>
-    <h3 matLine>New Note Hello You I am Jenish MS</h3>
-    <p matLine>5.58 PM <span class="note">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta quia, quod, a architecto necessitatibus ducimus omnis atque impedit ab nam exercitationem aperiam similique itaque nemo expedita esse error dignissimos ex!</span></p>
-  </mat-list-item>
-
-  <mat-list-item>
-    <h3 matLine>New Note Hello You I am Jenish MS</h3>
-    <p matLine>5.58 PM <span class="note">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta quia, quod, a architecto necessitatibus ducimus omnis atque impedit ab nam exercitationem aperiam similique itaque nemo expedita esse error dignissimos ex!</span></p>
-  </mat-list-item>
-
-  <mat-list-item>
-    <h3 matLine>New Note Hello You I am Jenish MS</h3>
-    <p matLine>5.58 PM <span class="note">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta quia, quod, a architecto necessitatibus ducimus omnis atque impedit ab nam exercitationem aperiam similique itaque nemo expedita esse error dignissimos ex!</span></p>
+  <mat-list-item *ngFor="let note of noteList" (click)="clickedNote(note)" [ngClass]="{'active': note.noteId === selectedNote.noteId}">
+    <h3 matLine color="primary">{{ note.title }}</h3>
+    <p matLine>{{ note.updatedOn | date: 'short' }} <span class="note">{{ note.note }}</span></p>
   </mat-list-item>
 </mat-nav-list>

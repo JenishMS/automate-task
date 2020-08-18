@@ -9,3 +9,8 @@
 .note {
   color: gray;
 }
+
+.mat-list-item.active {
+  background-color: indigo;
+  color: #FFF;
+}
