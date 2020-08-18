@@ -8,6 +8,7 @@ import { NotesService } from '../../services/notes.service';
 })
 export class ToolbarComponent implements OnInit {
   @Output() menuToggle = new EventEmitter();
+  @Output() deleteNote = new EventEmitter();
   constructor(private noteServ: NotesService) { }
 
   ngOnInit(): void {

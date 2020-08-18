@@ -16,7 +16,7 @@ export class NotesService {
    */
   fetchNotes() {
     let storedData = JSON.parse(window.localStorage.getItem('noteList'));
-    // console.log('fetch', storedData);
+
     if(storedData.length > 0) {
       this.notesList = storedData;
       this.noteSubject.next(this.notesList);
@@ -37,12 +37,12 @@ export class NotesService {
     let note = {
       noteId: this.getNewNoteId(),
       title: 'New Note',
-      note: '',
+      note: 'Some Text Here',
       updatedOn: new Date()
     };
     this.notesList.push(note);
-    this.noteSubject.next(this.notesList);
-    window.localStorage.setItem('noteList', JSON.stringify(this.notesList));
+
+    this.updateNoteList();
   }
 
   /**
@@ -52,7 +52,13 @@ export class NotesService {
    * @memberof NotesService
    */
   deleteNote(noteId: number) {
+    this.notesList = this.notesList.filter(data => {
+      if(noteId != data.noteId){
+        return data;
+      }
+    });
 
+    this.updateNoteList();
   }
 
   /**
@@ -72,10 +78,15 @@ export class NotesService {
         return data;
     });
 
-    this.noteSubject.next(this.notesList);
-    window.localStorage.setItem('noteList', JSON.stringify(this.notesList));
+    this.updateNoteList();
   }
 
+  /**
+   * get note id for new note
+   *
+   * @returns {number}
+   * @memberof NotesService
+   */
   getNewNoteId(): number {
     if(this.notesList.length > 0) {
       return parseInt(this.notesList[this.notesList.length - 1].noteId) + 1;
@@ -83,4 +94,17 @@ export class NotesService {
       return 1;
     }
   }
+
+  /**
+   *For update noteList and update to localstorage
+   *
+   * @memberof NotesService
+   */
+
+  updateNoteList() {
+    this.noteSubject.next(this.notesList);
+    window.localStorage.setItem('noteList', JSON.stringify(this.notesList));
+  }
+
+
 }

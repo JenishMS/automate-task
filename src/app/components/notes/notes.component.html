@@ -10,7 +10,7 @@
 
   <!-- main content start -->
   <mat-drawer-content>
-    <app-toolbar (menuToggle)="drawer.toggle()"></app-toolbar>
+    <app-toolbar (menuToggle)="drawer.toggle()" (deleteNote)="deleteNote($event)"></app-toolbar>
     <div class="body-container">
       <h1 class="page-name"></h1>
       <app-note [selectedNote]="note"></app-note>
