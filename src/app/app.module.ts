@@ -10,6 +10,7 @@ import { NotesComponent } from './components/notes/notes.component';
 import { MenusComponent } from './components/menus/menus.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NoteComponent } from './components/note/note.component';
+import { SearchTextPipe } from './pipes/search-text.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NoteComponent } from './components/note/note.component';
     NotesComponent,
     MenusComponent,
     ToolbarComponent,
-    NoteComponent
+    NoteComponent,
+    SearchTextPipe
   ],
   imports: [
     BrowserModule,

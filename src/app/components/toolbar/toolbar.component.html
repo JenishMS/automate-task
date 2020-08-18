@@ -14,6 +14,7 @@
   <mat-form-field floatLabel="never">
     <mat-label class="search-lbl">Search</mat-label>
     <mat-icon matPrefix class="search-icon">search</mat-icon>
-    <input matInput placeholder="Search" value="">
+    <input matInput placeholder="Search" [(ngModel)]="searchText" value="" (input)="searchNote()">
+    <mat-icon matSuffix class="clear-icon" (click)="clearText()">close</mat-icon>
   </mat-form-field>
 </mat-toolbar>

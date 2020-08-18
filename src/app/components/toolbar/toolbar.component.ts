@@ -9,6 +9,8 @@ import { NotesService } from '../../services/notes.service';
 export class ToolbarComponent implements OnInit {
   @Output() menuToggle = new EventEmitter();
   @Output() deleteNote = new EventEmitter();
+  searchText: string = '';
+
   constructor(private noteServ: NotesService) { }
 
   ngOnInit(): void {
@@ -21,6 +23,22 @@ export class ToolbarComponent implements OnInit {
    */
   createNote() {
     this.noteServ.addNote();
+  }
+
+  /**
+   * get search text while typing
+   *
+   * @memberof ToolbarComponent
+   */
+  searchNote() {
+    this.noteServ.searchText.next(this.searchText);
+    this.noteServ.searchNotes(this.searchText);
+  }
+
+  clearText() {
+    this.searchText = '';
+    this.noteServ.searchText.next('');
+    this.noteServ.updateNoteList();
   }
 
 }

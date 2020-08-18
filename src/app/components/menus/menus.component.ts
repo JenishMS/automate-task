@@ -10,6 +10,7 @@ import { Note } from 'src/app/models/note.model';
 export class MenusComponent implements OnInit {
   noteList: Note[];
   selectedNote: Note;
+  searchText: string;
   @Output() emitedNote = new EventEmitter();
 
   constructor(private noteServ: NotesService) { }
@@ -17,11 +18,20 @@ export class MenusComponent implements OnInit {
   ngOnInit(): void {
     this.selectedNote = new Note;
 
+    this.noteServ.searchText.subscribe(text => {
+      this.searchText =  text;
+    });
+
+    this.noteServ.searchSubject.subscribe(notes => {
+      this.noteList = notes;
+    });
+
     this.noteServ.noteSubject.subscribe(data => {
       this.noteList = data;
     }, err => {
       console.log(err);
     });
+
   }
 
   clickedNote(data: Note) {

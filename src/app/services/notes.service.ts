@@ -8,6 +8,9 @@ import { BehaviorSubject, Subject, Observable } from 'rxjs';
 export class NotesService {
   public notesList =[];
   public noteSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>([]);
+  public searchSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>([]);
+  public searchText: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
   constructor() { }
 
   /**
@@ -96,11 +99,26 @@ export class NotesService {
   }
 
   /**
+   * search note from note list
+   *
+   * @param {string} searchText
+   * @memberof NotesService
+   */
+  searchNotes(searchText: string) {
+    let filteredData = this.notesList.filter(note => {
+      if(note.title.toLowerCase().search(searchText.toLowerCase()) != -1 || note.note.toLowerCase().search(searchText.toLowerCase()) != -1){
+        return note;
+      }
+    });
+
+    this.searchSubject.next(filteredData);
+  }
+
+  /**
    *For update noteList and update to localstorage
    *
    * @memberof NotesService
    */
-
   updateNoteList() {
     this.noteSubject.next(this.notesList);
     window.localStorage.setItem('noteList', JSON.stringify(this.notesList));

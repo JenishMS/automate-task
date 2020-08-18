@@ -14,3 +14,11 @@
   background-color: indigo;
   color: #FFF;
 }
+
+.text-orange {
+  color: orange;
+}
+
+.mat-line span {
+  /* color: orange; */
+}

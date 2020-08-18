@@ -14,11 +14,13 @@ export class NoteComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedNote = new Note();
-    console.log(this.selectedNote);
   }
 
   changeNote() {
     this.selectedNote.updatedOn = new Date();
+    if(this.selectedNote.title == '')
+    this.selectedNote.title = 'New Note';
+
     this.noteServ.updateNote(this.selectedNote.noteId, this.selectedNote);
   }
 
