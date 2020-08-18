@@ -1,5 +1,5 @@
 <mat-nav-list>
-  <mat-list-item *ngFor="let note of noteList" (click)="clickedNote(note)" [ngClass]="{'active': note.noteId === selectedNote.noteId}">
+  <mat-list-item *ngFor="let note of noteList.reverse()" (click)="clickedNote(note)" [ngClass]="{'active': note.noteId === selectedNote.noteId}">
     <h3 matLine color="primary">{{ note.title }}</h3>
     <p matLine>{{ note.updatedOn | date: 'short' }} <span class="note">{{ note.note }}</span></p>
   </mat-list-item>

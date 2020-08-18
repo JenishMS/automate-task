@@ -40,8 +40,7 @@ export class NotesService {
       note: '',
       updatedOn: new Date()
     };
-
-    this.notesList.unshift(note);
+    this.notesList.push(note);
     this.noteSubject.next(this.notesList);
     window.localStorage.setItem('noteList', JSON.stringify(this.notesList));
   }
@@ -79,10 +78,9 @@ export class NotesService {
 
   getNewNoteId(): number {
     if(this.notesList.length > 0) {
-      console.log(this.notesList[this.notesList.length - 1]);
-      return this.notesList[this.notesList.length - 1].noteId + 1;
+      return parseInt(this.notesList[this.notesList.length - 1].noteId) + 1;
     }else{
-      return 0;
+      return 1;
     }
   }
 }

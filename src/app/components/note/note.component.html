@@ -1,5 +1,4 @@
 <div class="container">
   <p class="datetime">{{ selectedNote.updatedOn | date:'short' }}</p>
-  <p class="datetime">{{ selectedNote.title }}</p>
   <textarea matInput placeholder="Note" [(ngModel)]="selectedNote.title" (input)="changeNote()">{{selectedNote.title}}</textarea>
 </div>
