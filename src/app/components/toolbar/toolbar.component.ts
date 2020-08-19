@@ -32,7 +32,6 @@ export class ToolbarComponent implements OnInit {
    */
   searchNote() {
     this.noteServ.searchText.next(this.searchText);
-    this.noteServ.searchNotes(this.searchText);
   }
 
   clearText() {

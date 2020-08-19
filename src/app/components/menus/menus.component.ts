@@ -20,10 +20,10 @@ export class MenusComponent implements OnInit {
 
     this.noteServ.searchText.subscribe(text => {
       this.searchText =  text;
-    });
 
-    this.noteServ.searchSubject.subscribe(notes => {
-      this.noteList = notes;
+      if(text.length > 0){
+        this.noteList = this.noteServ.searchNotes(text);
+      }
     });
 
     this.noteServ.noteSubject.subscribe(data => {

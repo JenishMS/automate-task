@@ -18,9 +18,6 @@ export class NoteComponent implements OnInit {
 
   changeNote() {
     this.selectedNote.updatedOn = new Date();
-    if(this.selectedNote.title == '')
-    this.selectedNote.title = 'New Note';
-
     this.noteServ.updateNote(this.selectedNote.noteId, this.selectedNote);
   }
 

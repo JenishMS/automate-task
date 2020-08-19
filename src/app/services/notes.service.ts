@@ -8,7 +8,6 @@ import { BehaviorSubject, Subject, Observable } from 'rxjs';
 export class NotesService {
   public notesList =[];
   public noteSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>([]);
-  public searchSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>([]);
   public searchText: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor() { }
@@ -40,7 +39,7 @@ export class NotesService {
     let note = {
       noteId: this.getNewNoteId(),
       title: 'New Note',
-      note: 'Some Text Here',
+      note: 'No additional text',
       updatedOn: new Date()
     };
     this.notesList.push(note);
@@ -104,14 +103,14 @@ export class NotesService {
    * @param {string} searchText
    * @memberof NotesService
    */
-  searchNotes(searchText: string) {
+  searchNotes(searchText: string): Note[] {
     let filteredData = this.notesList.filter(note => {
       if(note.title.toLowerCase().search(searchText.toLowerCase()) != -1 || note.note.toLowerCase().search(searchText.toLowerCase()) != -1){
         return note;
       }
     });
 
-    this.searchSubject.next(filteredData);
+    return filteredData;
   }
 
   /**
@@ -123,6 +122,4 @@ export class NotesService {
     this.noteSubject.next(this.notesList);
     window.localStorage.setItem('noteList', JSON.stringify(this.notesList));
   }
-
-
 }
