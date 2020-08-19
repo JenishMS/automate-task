@@ -1,6 +1,7 @@
 :host {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
+  overflow-y: auto;
 }
 .mat-input-element {
   height: 75vh;

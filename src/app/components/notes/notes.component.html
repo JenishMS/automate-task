@@ -1,6 +1,6 @@
 <mat-drawer-container>
   <!-- side menu start -->
-  <mat-drawer #drawer mode="side" opened>
+  <mat-drawer #drawer [mode]="isScreenSmall() ? 'over' : 'side'" [opened]="!isScreenSmall()"  class="mat-elevation-z10">
     <mat-toolbar color="primary">
       <span>Notes</span>
     </mat-toolbar>

@@ -28,4 +28,11 @@
   padding: 10px 50px 20px 10px;
 }
 
+.mat-toolbar {
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
 

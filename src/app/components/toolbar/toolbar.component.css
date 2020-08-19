@@ -1,3 +1,9 @@
+:host {
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
+}
 .spacer {
   flex: 1 1 auto;
 }
@@ -7,11 +13,32 @@
   line-height: normal;
 }
 
-.mat-icon-button {
+.action-btn {
   margin-right: 10px;
   margin-left: 10px;
 }
 
 .clear-icon {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 450px){
+  .mat-form-field {
+    width: 150px;
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 380px){
+  .mat-form-field {
+    width: 120px;
+  }
+  .mat-toolbar {
+    font-size: 16px;
+    padding-left: 0px;
+  }
+  .action-btn {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
 }

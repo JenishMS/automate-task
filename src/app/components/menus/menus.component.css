@@ -1,3 +1,7 @@
+:host {
+  overflow-y: auto;
+}
+
 .mat-list-item h3 {
   font-weight: bold;
   font-size: 1.2em;

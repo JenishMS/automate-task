@@ -4,17 +4,17 @@
   </button>
   <span>Notes App</span>
   <div class="spacer"></div>
-  <button mat-icon-button aria-label="create new note" (click)="createNote()">
+  <button mat-icon-button class="action-btn" aria-label="create new note" (click)="createNote()">
     <mat-icon>create</mat-icon>
   </button>
-  <button mat-icon-button aria-label="delete note" (click)="deleteNote.emit()">
+  <button mat-icon-button class="action-btn" aria-label="delete note" (click)="deleteNote.emit()">
     <mat-icon>delete</mat-icon>
   </button>
  <!-- search box -->
   <mat-form-field floatLabel="never">
     <mat-label class="search-lbl">Search</mat-label>
     <mat-icon matPrefix class="search-icon">search</mat-icon>
-    <input matInput placeholder="Search" [(ngModel)]="searchText" value="" (input)="searchNote()">
+    <input matInput placeholder="Search" [(ngModel)]="searchText" class="search-fld" value="" (input)="searchNote()">
     <mat-icon matSuffix class="clear-icon" (click)="clearText()">close</mat-icon>
   </mat-form-field>
 </mat-toolbar>
