@@ -1,5 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NotesService } from '../../services/notes.service';
+import { Store, select } from '@ngrx/store';
+import { addNote, notesList } from '../../state/actions/note.actions'
+import { Note } from 'src/app/models/note.model';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,10 +13,16 @@ export class ToolbarComponent implements OnInit {
   @Output() menuToggle = new EventEmitter();
   @Output() deleteNote = new EventEmitter();
   searchText: string = '';
-
-  constructor(private noteServ: NotesService) { }
+  newId = 1;
+  constructor(private noteServ: NotesService, private store: Store) { }
 
   ngOnInit(): void {
+    this.store.pipe(select(state => state)).subscribe(data => {
+      let length = data['notes'].length;
+      if(length > 0){
+        this.newId = data['notes'][length - 1].noteId + 1;
+      }
+    });
   }
 
   /**
@@ -23,6 +32,13 @@ export class ToolbarComponent implements OnInit {
    */
   createNote() {
     this.noteServ.addNote();
+
+    this.store.dispatch(addNote({
+      noteId: this.newId,
+      title: 'New Note',
+      note: 'No additional text',
+      updatedOn: new Date()
+    }));
   }
 
   /**

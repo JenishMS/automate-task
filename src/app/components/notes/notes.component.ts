@@ -4,6 +4,9 @@ import { Note } from 'src/app/models/note.model';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Store, select } from '@ngrx/store';
+import * as noteActions from '../../state/actions/note.actions';
+import { state } from '@angular/animations';
 
 const SMALL_WIDTH_BRAEKPOINT = 720;
 
@@ -18,13 +21,17 @@ export class NotesComponent implements OnInit {
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BRAEKPOINT}px)`);
   @ViewChild(MatDrawer) drawer: MatDrawer;
 
-  constructor(private noteServ: NotesService, private router: Router, zone: NgZone) {
+  constructor(private noteServ: NotesService, private router: Router, zone: NgZone,private store: Store) {
     this.mediaMatcher.addListener(mql => {
       if(mql.matches) {
         this.drawer.close();
       }else if(this.drawer.opened === false){
         this.drawer.open();
       }
+    });
+
+    this.store.subscribe(state => {
+      console.log(state);
     });
   }
 
@@ -36,6 +43,7 @@ export class NotesComponent implements OnInit {
         this.drawer.close();
       }
     });
+
   }
 
   /**
