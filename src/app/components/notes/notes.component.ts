@@ -2,11 +2,9 @@ import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { NotesService } from 'src/app/services/notes.service';
 import { Note } from 'src/app/models/note.model';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Store, select } from '@ngrx/store';
-import * as noteActions from '../../state/actions/note.actions';
-import { state } from '@angular/animations';
+import { deleteNote, notesList } from '../../state/actions/note.actions';
 
 const SMALL_WIDTH_BRAEKPOINT = 720;
 
@@ -30,7 +28,9 @@ export class NotesComponent implements OnInit {
       }
     });
 
-    this.store.subscribe(state => {
+    this.store.dispatch(notesList());
+
+    this.store.pipe(select(state => state)).subscribe(state => {
       console.log(state);
     });
   }
@@ -67,6 +67,9 @@ export class NotesComponent implements OnInit {
   deleteNote(event) {
     if(this.note) {
       this.noteServ.deleteNote(this.note.noteId);
+
+      //Redux Code
+      this.store.dispatch(deleteNote({noteId: this.note.noteId}));
     }
   }
 

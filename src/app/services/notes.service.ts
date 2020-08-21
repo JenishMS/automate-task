@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Note } from '../models/note.model';
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { BehaviorSubject, Subject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -105,7 +105,7 @@ export class NotesService {
    */
   searchNotes(searchText: string): Note[] {
     let filteredData = this.notesList.filter(note => {
-      if(note.title.toLowerCase().search(searchText.toLowerCase()) != -1 || note.note.toLowerCase().search(searchText.toLowerCase()) != -1){
+      if(note.title.toLowerCase().trim().search(searchText.trim().toLowerCase()) != -1 || note.note.toLowerCase().search(searchText.trim().toLowerCase()) != -1){
         return note;
       }
     });
@@ -121,5 +121,17 @@ export class NotesService {
   updateNoteList() {
     this.noteSubject.next(this.notesList);
     window.localStorage.setItem('noteList', JSON.stringify(this.notesList));
+  }
+
+  //Effects Code
+
+  getNotes(): Observable<Note[]> {
+    let storedData = window.localStorage.getItem('noteList');
+    if(storedData !== null){
+      return of(JSON.parse(storedData));
+    }else{
+      window.localStorage.setItem('noteList', JSON.stringify([]));
+      return of([]);
+    }
   }
 }

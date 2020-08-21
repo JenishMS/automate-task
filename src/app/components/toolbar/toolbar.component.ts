@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NotesService } from '../../services/notes.service';
 import { Store, select } from '@ngrx/store';
-import { addNote, notesList } from '../../state/actions/note.actions'
+import { addNote, notesList, deleteNote } from '../../state/actions/note.actions'
 import { Note } from 'src/app/models/note.model';
 
 @Component({
@@ -47,7 +47,10 @@ export class ToolbarComponent implements OnInit {
    * @memberof ToolbarComponent
    */
   searchNote() {
-    this.noteServ.searchText.next(this.searchText);
+    if(this.searchText == '')
+      this.clearText();
+    else
+      this.noteServ.searchText.next(this.searchText);
   }
 
   clearText() {

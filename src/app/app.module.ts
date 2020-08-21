@@ -3,6 +3,8 @@ import { BrowserAnimationsModule }  from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NoteEffect } from './state/effects/note.effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModuleModule } from './shared/material-module.module';
@@ -13,6 +15,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NoteComponent } from './components/note/note.component';
 import { SearchTextPipe } from './pipes/search-text.pipe';
 import { noteReducer } from './state/reducers/note.reducer';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { noteReducer } from './state/reducers/note.reducer';
     FormsModule,
     ReactiveFormsModule,
     MaterialModuleModule,
-    StoreModule.forRoot({notes: noteReducer})
+    StoreModule.forRoot({notes: noteReducer}),
+    EffectsModule.forRoot([NoteEffect]),
+    StoreDevtoolsModule.instrument({})
   ],
   providers: [],
   bootstrap: [AppComponent]
