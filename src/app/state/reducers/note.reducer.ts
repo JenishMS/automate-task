@@ -1,23 +1,26 @@
 import { createReducer, on, ActionCreator } from '@ngrx/store';
 import {
-  notesList,
-  addNote,
-  updateNote,
-  deleteNote,
-  searchNote,
-  getNoteId
+  loadNotesList,
+  addNoteState,
+  updateNoteState,
+  deleteNoteState,
+  searchNote
 } from '../actions/note.actions';
 import { Note } from '../../models/note.model';
 
 
-export const initialState: Note[] = [];
+export let initialState: Note[] = [];
 
   // on(notesList, state => state),
 const _noteReducer = createReducer(initialState,
-  on(addNote, (notes, payload) => {
+  on(loadNotesList, (notes, payload) => {
+    notes = [...payload.notes];
+    return notes;
+  }),
+  on(addNoteState, (notes, payload) => {
     return [...notes, payload];
   }),
-  on(updateNote, (notes, payload) => {
+  on(updateNoteState, (notes, payload) => {
       let newNOTE = [...notes];
       newNOTE = newNOTE.map(note => {
         if(payload.noteId == note.noteId){
@@ -28,7 +31,7 @@ const _noteReducer = createReducer(initialState,
       });
       return newNOTE;
   }),
-  on(deleteNote, (notes, payload) => {
+  on(deleteNoteState, (notes, payload) => {
     let newNotes = [...notes];
     newNotes = newNotes.filter(note => {
       if(payload.noteId != note.noteId){
@@ -46,13 +49,7 @@ const _noteReducer = createReducer(initialState,
     });
 
     return filteredData;
-  }),
-  on(getNoteId, notes => {
-    console.log(notes);
-    // const notesArr = notes.length;
-
-    return notes;
-})
+  })
 );
 
 export function noteReducer(state, action) {

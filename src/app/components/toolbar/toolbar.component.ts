@@ -17,12 +17,6 @@ export class ToolbarComponent implements OnInit {
   constructor(private noteServ: NotesService, private store: Store) { }
 
   ngOnInit(): void {
-    this.store.pipe(select(state => state)).subscribe(data => {
-      let length = data['notes'].length;
-      if(length > 0){
-        this.newId = data['notes'][length - 1].noteId + 1;
-      }
-    });
   }
 
   /**
@@ -31,14 +25,7 @@ export class ToolbarComponent implements OnInit {
    * @memberof ToolbarComponent
    */
   createNote() {
-    this.noteServ.addNote();
-
-    this.store.dispatch(addNote({
-      noteId: this.newId,
-      title: 'New Note',
-      note: 'No additional text',
-      updatedOn: new Date()
-    }));
+    this.store.dispatch(addNote());
   }
 
   /**
@@ -56,7 +43,6 @@ export class ToolbarComponent implements OnInit {
   clearText() {
     this.searchText = '';
     this.noteServ.searchText.next('');
-    this.noteServ.updateNoteList();
   }
 
 }

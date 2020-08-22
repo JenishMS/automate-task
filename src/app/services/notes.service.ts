@@ -6,27 +6,9 @@ import { BehaviorSubject, Subject, Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class NotesService {
-  public notesList =[];
-  public noteSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>([]);
   public searchText: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor() { }
-
-  /**
-   * Fetch notes list from localstorage
-   * return Note[]
-   */
-  fetchNotes() {
-    let storedData = JSON.parse(window.localStorage.getItem('noteList'));
-
-    if(storedData.length > 0) {
-      this.notesList = storedData;
-      this.noteSubject.next(this.notesList);
-    }else{
-      window.localStorage.setItem('noteList', JSON.stringify([]));
-    }
-
-  }
 
   /**
    *
@@ -35,16 +17,17 @@ export class NotesService {
    * @memberof NotesService
    */
 
-  addNote(){
+  addNote(): Note[]{
+    let notesList = this.getNotes();
     let note = {
       noteId: this.getNewNoteId(),
       title: 'New Note',
       note: 'No additional text',
       updatedOn: new Date()
     };
-    this.notesList.push(note);
-
-    this.updateNoteList();
+    notesList.push(note)
+    window.localStorage.setItem('noteList', JSON.stringify(notesList));
+    return [note];
   }
 
   /**
@@ -54,13 +37,14 @@ export class NotesService {
    * @memberof NotesService
    */
   deleteNote(noteId: number) {
-    this.notesList = this.notesList.filter(data => {
+    let notesList: Note[] = this.getNotes();
+    notesList = notesList.filter(data => {
       if(noteId != data.noteId){
         return data;
       }
     });
 
-    this.updateNoteList();
+    window.localStorage.setItem('noteList', JSON.stringify(notesList));
   }
 
   /**
@@ -72,15 +56,14 @@ export class NotesService {
    */
 
   updateNote(noteId: number, noteData: Note) {
-
-    this.notesList = this.notesList.map(data => {
+    let notesList: Note[] = this.getNotes();
+    notesList = notesList.map(data => {
       if(data.noteId == noteId)
         return noteData;
       else
         return data;
     });
-
-    this.updateNoteList();
+    window.localStorage.setItem('noteList', JSON.stringify(notesList));
   }
 
   /**
@@ -90,8 +73,9 @@ export class NotesService {
    * @memberof NotesService
    */
   getNewNoteId(): number {
-    if(this.notesList.length > 0) {
-      return parseInt(this.notesList[this.notesList.length - 1].noteId) + 1;
+    let notesList: Note[] = this.getNotes();
+    if(notesList.length > 0) {
+      return notesList[notesList.length -1].noteId + 1;
     }else{
       return 1;
     }
@@ -104,7 +88,8 @@ export class NotesService {
    * @memberof NotesService
    */
   searchNotes(searchText: string): Note[] {
-    let filteredData = this.notesList.filter(note => {
+    let notesList: Note[] = this.getNotes();
+    let filteredData = notesList.filter(note => {
       if(note.title.toLowerCase().trim().search(searchText.trim().toLowerCase()) != -1 || note.note.toLowerCase().search(searchText.trim().toLowerCase()) != -1){
         return note;
       }
@@ -113,25 +98,15 @@ export class NotesService {
     return filteredData;
   }
 
-  /**
-   *For update noteList and update to localstorage
-   *
-   * @memberof NotesService
-   */
-  updateNoteList() {
-    this.noteSubject.next(this.notesList);
-    window.localStorage.setItem('noteList', JSON.stringify(this.notesList));
-  }
-
   //Effects Code
 
-  getNotes(): Observable<Note[]> {
+  getNotes(): Note[] {
     let storedData = window.localStorage.getItem('noteList');
     if(storedData !== null){
-      return of(JSON.parse(storedData));
+      return JSON.parse(storedData);
     }else{
       window.localStorage.setItem('noteList', JSON.stringify([]));
-      return of([]);
+      return [];
     }
   }
 }

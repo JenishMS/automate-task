@@ -30,14 +30,9 @@ export class NotesComponent implements OnInit {
 
     this.store.dispatch(notesList());
 
-    this.store.pipe(select(state => state)).subscribe(state => {
-      console.log(state);
-    });
   }
 
   ngOnInit(): void {
-    this.noteServ.fetchNotes();
-
     this.router.events.subscribe( () => {
       if(this.isScreenSmall()) {
         this.drawer.close();

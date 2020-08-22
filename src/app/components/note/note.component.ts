@@ -20,7 +20,7 @@ export class NoteComponent implements OnInit {
 
   changeNote() {
     this.selectedNote.updatedOn = new Date();
-    this.noteServ.updateNote(this.selectedNote.noteId, this.selectedNote);
+    // this.noteServ.updateNote(this.selectedNote.noteId, this.selectedNote);
 
     //Redux
     this.store.dispatch(updateNote({noteId: this.selectedNote.noteId, note: {...this.selectedNote}}));

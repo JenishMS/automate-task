@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NotesService } from '../../services/notes.service';
 import { Note } from 'src/app/models/note.model';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { searchNote } from '../../state/actions/note.actions';
 
 @Component({
@@ -24,15 +24,13 @@ export class MenusComponent implements OnInit {
       this.searchText =  text;
 
       if(text.length > 0){
-        this.noteList = this.noteServ.searchNotes(text);
+        // this.noteList = this.noteServ.searchNotes(text);
         this.store.dispatch(searchNote({searchText: text}));
       }
     });
 
-    this.noteServ.noteSubject.subscribe(data => {
-      this.noteList = data;
-    }, err => {
-      console.log(err);
+    this.store.pipe(select(state => state)).subscribe(state => {
+      this.noteList = JSON.parse(JSON.stringify((state as any).notes));
     });
 
   }
