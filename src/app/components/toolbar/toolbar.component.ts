@@ -25,7 +25,8 @@ export class ToolbarComponent implements OnInit {
    */
   createNote() {
     this.store.dispatch(addAction());
-    this.noteServ.newNoteTriger.next(true);
+    this.searchText = '';
+    this.noteServ.searchText.next('');
   }
 
   /**
