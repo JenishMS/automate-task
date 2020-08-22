@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NotesService } from '../../services/notes.service';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { addAction, resetAction} from '../../state/actions/note.actions';
 
 @Component({
@@ -25,6 +25,7 @@ export class ToolbarComponent implements OnInit {
    */
   createNote() {
     this.store.dispatch(addAction());
+    this.noteServ.newNoteTriger.next(true);
   }
 
   /**

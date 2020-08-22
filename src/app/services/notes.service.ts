@@ -7,6 +7,7 @@ import { BehaviorSubject, Subject, Observable, of } from 'rxjs';
 })
 export class NotesService {
   public searchText: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public newNoteTriger: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() { }
 

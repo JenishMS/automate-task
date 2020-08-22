@@ -4,7 +4,7 @@ import { Note } from 'src/app/models/note.model';
 import { Router } from '@angular/router';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Store, select } from '@ngrx/store';
-import { deleteAction, notesListAction } from '../../state/actions/note.actions';
+import { deleteAction, notesListAction, resetAction } from '../../state/actions/note.actions';
 
 const SMALL_WIDTH_BRAEKPOINT = 720;
 
@@ -30,6 +30,15 @@ export class NotesComponent implements OnInit {
 
     this.store.dispatch(notesListAction());
 
+    // this.noteServ.newNoteTriger.subscribe(status => {
+    //   if(status === true){
+    //     this.store.pipe(select(state => state)).subscribe(state => {
+    //       let noteList = JSON.parse(JSON.stringify((state as any).notes));
+    //       console.log("Here", noteList);
+    //         this.note = noteList[noteList.length - 1];
+    //       });
+    //   }
+    // });
   }
 
   ngOnInit(): void {
@@ -62,6 +71,7 @@ export class NotesComponent implements OnInit {
   deleteNote(event) {
     if(this.note) {
       this.store.dispatch(deleteAction({noteId: this.note.noteId}));
+      this.note = new Note;
     }
   }
 

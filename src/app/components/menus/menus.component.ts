@@ -32,6 +32,16 @@ export class MenusComponent implements OnInit {
         }
     });
 
+    this.noteServ.newNoteTriger.subscribe(status => {
+      if(status === true){
+        this.store.dispatch(resetAction());
+        this.store.pipe(select(state => state)).subscribe(state => {
+            this.selectedNote = this.noteList[this.noteList.length - 1];
+            this.emitedNote.emit(this.selectedNote);
+          });
+      }
+     });
+
     this.store.pipe(select(state => state)).subscribe(state => {
       this.noteList = JSON.parse(JSON.stringify((state as any).notes));
     });
