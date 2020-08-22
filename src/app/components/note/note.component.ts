@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Note } from 'src/app/models/note.model';
 import { NotesService } from 'src/app/services/notes.service';
 import { Store } from '@ngrx/store';
-import { updateNote } from '../../state/actions/note.actions';
+import { updateAction } from '../../state/actions/note.actions';
 
 @Component({
   selector: 'app-note',
@@ -20,10 +20,7 @@ export class NoteComponent implements OnInit {
 
   changeNote() {
     this.selectedNote.updatedOn = new Date();
-    // this.noteServ.updateNote(this.selectedNote.noteId, this.selectedNote);
-
-    //Redux
-    this.store.dispatch(updateNote({noteId: this.selectedNote.noteId, note: {...this.selectedNote}}));
+    this.store.dispatch(updateAction({noteId: this.selectedNote.noteId, note: {...this.selectedNote}}));
   }
 
 }

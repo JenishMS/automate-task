@@ -1,8 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NotesService } from '../../services/notes.service';
 import { Store, select } from '@ngrx/store';
-import { addNote, notesList, deleteNote } from '../../state/actions/note.actions'
-import { Note } from 'src/app/models/note.model';
+import { addAction, resetAction} from '../../state/actions/note.actions';
 
 @Component({
   selector: 'app-toolbar',
@@ -25,7 +24,7 @@ export class ToolbarComponent implements OnInit {
    * @memberof ToolbarComponent
    */
   createNote() {
-    this.store.dispatch(addNote());
+    this.store.dispatch(addAction());
   }
 
   /**
@@ -34,15 +33,19 @@ export class ToolbarComponent implements OnInit {
    * @memberof ToolbarComponent
    */
   searchNote() {
-    if(this.searchText == '')
+    if(this.searchText.trim() == ''){
+      this.noteServ.searchText.next('');
+      this.store.dispatch(resetAction());
       this.clearText();
-    else
+    }
+    else{
       this.noteServ.searchText.next(this.searchText);
+    }
   }
 
   clearText() {
     this.searchText = '';
-    this.noteServ.searchText.next('');
+    this.store.dispatch(resetAction());
   }
 
 }

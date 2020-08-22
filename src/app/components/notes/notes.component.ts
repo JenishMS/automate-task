@@ -4,7 +4,7 @@ import { Note } from 'src/app/models/note.model';
 import { Router } from '@angular/router';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Store, select } from '@ngrx/store';
-import { deleteNote, notesList } from '../../state/actions/note.actions';
+import { deleteAction, notesListAction } from '../../state/actions/note.actions';
 
 const SMALL_WIDTH_BRAEKPOINT = 720;
 
@@ -28,7 +28,7 @@ export class NotesComponent implements OnInit {
       }
     });
 
-    this.store.dispatch(notesList());
+    this.store.dispatch(notesListAction());
 
   }
 
@@ -61,10 +61,7 @@ export class NotesComponent implements OnInit {
 
   deleteNote(event) {
     if(this.note) {
-      this.noteServ.deleteNote(this.note.noteId);
-
-      //Redux Code
-      this.store.dispatch(deleteNote({noteId: this.note.noteId}));
+      this.store.dispatch(deleteAction({noteId: this.note.noteId}));
     }
   }
 

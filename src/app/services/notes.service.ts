@@ -17,7 +17,7 @@ export class NotesService {
    * @memberof NotesService
    */
 
-  addNote(): Note[]{
+  addNote(): Note{
     let notesList = this.getNotes();
     let note = {
       noteId: this.getNewNoteId(),
@@ -27,7 +27,7 @@ export class NotesService {
     };
     notesList.push(note)
     window.localStorage.setItem('noteList', JSON.stringify(notesList));
-    return [note];
+    return note;
   }
 
   /**
@@ -43,7 +43,6 @@ export class NotesService {
         return data;
       }
     });
-
     window.localStorage.setItem('noteList', JSON.stringify(notesList));
   }
 
@@ -79,23 +78,6 @@ export class NotesService {
     }else{
       return 1;
     }
-  }
-
-  /**
-   * search note from note list
-   *
-   * @param {string} searchText
-   * @memberof NotesService
-   */
-  searchNotes(searchText: string): Note[] {
-    let notesList: Note[] = this.getNotes();
-    let filteredData = notesList.filter(note => {
-      if(note.title.toLowerCase().trim().search(searchText.trim().toLowerCase()) != -1 || note.note.toLowerCase().search(searchText.trim().toLowerCase()) != -1){
-        return note;
-      }
-    });
-
-    return filteredData;
   }
 
   //Effects Code

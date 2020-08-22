@@ -1,10 +1,10 @@
 import { createReducer, on, ActionCreator } from '@ngrx/store';
 import {
-  loadNotesList,
-  addNoteState,
-  updateNoteState,
-  deleteNoteState,
-  searchNote
+  loadNotesAction,
+  addNoteAction,
+  updateNoteAction,
+  deleteNoteAction,
+  resetAction
 } from '../actions/note.actions';
 import { Note } from '../../models/note.model';
 
@@ -13,14 +13,14 @@ export let initialState: Note[] = [];
 
   // on(notesList, state => state),
 const _noteReducer = createReducer(initialState,
-  on(loadNotesList, (notes, payload) => {
+  on(loadNotesAction, (notes, payload) => {
     notes = [...payload.notes];
     return notes;
   }),
-  on(addNoteState, (notes, payload) => {
+  on(addNoteAction, (notes, payload) => {
     return [...notes, payload];
   }),
-  on(updateNoteState, (notes, payload) => {
+  on(updateNoteAction, (notes, payload) => {
       let newNOTE = [...notes];
       newNOTE = newNOTE.map(note => {
         if(payload.noteId == note.noteId){
@@ -31,7 +31,7 @@ const _noteReducer = createReducer(initialState,
       });
       return newNOTE;
   }),
-  on(deleteNoteState, (notes, payload) => {
+  on(deleteNoteAction, (notes, payload) => {
     let newNotes = [...notes];
     newNotes = newNotes.filter(note => {
       if(payload.noteId != note.noteId){
@@ -40,15 +40,8 @@ const _noteReducer = createReducer(initialState,
     });
     return newNotes;
   }),
-  on(searchNote, (notes, payload) => {
-    let filteredData = [...notes];
-    filteredData = filteredData.filter(note => {
-      if(note.title.toLowerCase().search(payload.searchText.toLowerCase()) != -1 || note.note.toLowerCase().search(payload.searchText.toLowerCase()) != -1){
-        return note;
-      }
-    });
-
-    return filteredData;
+  on(resetAction, (notes, payload) => {
+    return [...notes];
   })
 );
 

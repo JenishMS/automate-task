@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NoteEffect } from './state/effects/note.effects';
+// import { NoteAddEffect } from './state/effects/note-add.effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModuleModule } from './shared/material-module.module';

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NotesService } from '../../services/notes.service';
 import { Note } from 'src/app/models/note.model';
 import { Store, select } from '@ngrx/store';
-import { searchNote } from '../../state/actions/note.actions';
+import { resetAction } from '../../state/actions/note.actions';
 
 @Component({
   selector: 'app-menus',
@@ -22,11 +22,14 @@ export class MenusComponent implements OnInit {
 
     this.noteServ.searchText.subscribe(text => {
       this.searchText =  text;
-
-      if(text.length > 0){
-        // this.noteList = this.noteServ.searchNotes(text);
-        this.store.dispatch(searchNote({searchText: text}));
-      }
+      this.store.dispatch(resetAction());
+        if(text.trim().length > 0){
+          this.noteList = this.noteList.filter(note => {
+            if(note.title.toLowerCase().search(text.trim().toLowerCase()) != -1 || note.note.toLowerCase().search(text.trim().toLowerCase()) != -1){
+              return note;
+            }
+          });
+        }
     });
 
     this.store.pipe(select(state => state)).subscribe(state => {

@@ -2,32 +2,30 @@ import { createAction, props } from '@ngrx/store';
 import { Note } from 'src/app/models/note.model';
 
 
-export const notesList = createAction('[Note] getNoteList');
-export const addNote = createAction('[Note] addNote');
-export const updateNote = createAction('[Note] updateNote',
+export const notesListAction = createAction('[Note] getNoteList');
+export const addAction = createAction('[Note] addNote');
+export const updateAction = createAction('[Note] updateNote',
 props<{noteId: number, note: Note}>()
 );
-export const deleteNote = createAction('[Note] deleteNote',
+export const deleteAction = createAction('[Note] deleteNote',
 props<{noteId: number}>()
 );
-export const searchNote = createAction('[Note] searchNote',
-props<{searchText: string}>()
-);
+export const resetAction = createAction('[Note] resetNotes');
 
 // Effects called functions
 
-export const loadNotesList = createAction('[Note] loadNoteList',
+export const loadNotesAction = createAction('[Note] loadNoteList',
   props<{notes: Note[]}>()
 );
 
-export const addNoteState = createAction('[Note] addNote',
+export const addNoteAction = createAction('[Note] addNoteState',
   props<Note>()
 );
 
-export const updateNoteState = createAction('[Note] updateNote',
+export const updateNoteAction = createAction('[Note] updateNoteState',
   props<{noteId: number, note: Note}>()
 );
 
-export const deleteNoteState = createAction('[Note] deleteNote',
+export const deleteNoteAction = createAction('[Note] deleteNoteState',
   props<{noteId: number}>()
 );
