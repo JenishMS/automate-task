@@ -23,20 +23,30 @@ export class MenusComponent implements OnInit {
     this.noteServ.searchText.subscribe(text => {
       this.searchText =  text;
       this.store.dispatch(resetAction());
-        if(text.trim().length > 0){
+        const isValidText = text.trim().length > 0;
+        if(isValidText){
           this.noteList = this.noteList.filter(note => {
-            if(note.title.toLowerCase().search(text.trim().toLowerCase()) != -1 || note.note.toLowerCase().search(text.trim().toLowerCase()) != -1){
+            const hasSearchText = note.title.toLowerCase().search(text.trim().toLowerCase()) != -1 || note.note.toLowerCase().search(text.trim().toLowerCase()) != -1;
+            if(hasSearchText){
               return note;
             }
           });
         }
     });
 
+    // To get the data from store
     this.store.pipe(select(state => state)).subscribe(state => {
       this.noteList = JSON.parse(JSON.stringify((state as any).notes));
     });
 
   }
+
+  /**
+   * get selected note from menu and emit to notes component
+   *
+   * @param {Note} data
+   * @memberof MenusComponent
+   */
 
   clickedNote(data: Note) {
     this.selectedNote = data;

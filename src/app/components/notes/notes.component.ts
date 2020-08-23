@@ -1,9 +1,10 @@
 import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { MatDrawer } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
+
 import { NotesService } from 'src/app/services/notes.service';
 import { Note } from 'src/app/models/note.model';
-import { Router } from '@angular/router';
-import { MatDrawer } from '@angular/material/sidenav';
-import { Store, select } from '@ngrx/store';
 import { deleteAction, notesListAction, resetAction } from '../../state/actions/note.actions';
 
 const SMALL_WIDTH_BRAEKPOINT = 720;
@@ -29,16 +30,6 @@ export class NotesComponent implements OnInit {
     });
 
     this.store.dispatch(notesListAction());
-
-    // this.noteServ.newNoteTriger.subscribe(status => {
-    //   if(status === true){
-    //     this.store.pipe(select(state => state)).subscribe(state => {
-    //       let noteList = JSON.parse(JSON.stringify((state as any).notes));
-    //       console.log("Here", noteList);
-    //         this.note = noteList[noteList.length - 1];
-    //       });
-    //   }
-    // });
   }
 
   ngOnInit(): void {
@@ -56,7 +47,6 @@ export class NotesComponent implements OnInit {
    * @param {*} event
    * @memberof NotesComponent
    */
-
   selectedNote(event) {
     this.note = event;
   }
@@ -67,7 +57,6 @@ export class NotesComponent implements OnInit {
    * @param {*} event
    * @memberof NotesComponent
    */
-
   deleteNote(event) {
     if(this.note) {
       this.store.dispatch(deleteAction({noteId: this.note.noteId}));
@@ -75,6 +64,12 @@ export class NotesComponent implements OnInit {
     }
   }
 
+  /**
+   * For check is small screen device
+   *
+   * @returns {boolean}
+   * @memberof NotesComponent
+   */
   isScreenSmall():boolean {
     return this.mediaMatcher.matches;
   }

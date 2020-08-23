@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { NotesService } from '../../services/notes.service';
 import { Store } from '@ngrx/store';
+
+import { NotesService } from '../../services/notes.service';
 import { addAction, resetAction} from '../../state/actions/note.actions';
 
 @Component({
@@ -11,7 +12,7 @@ import { addAction, resetAction} from '../../state/actions/note.actions';
 export class ToolbarComponent implements OnInit {
   @Output() menuToggle = new EventEmitter();
   @Output() deleteNote = new EventEmitter();
-  searchText: string = '';
+  searchText = '';
   newId = 1;
   constructor(private noteServ: NotesService, private store: Store) { }
 
@@ -45,8 +46,14 @@ export class ToolbarComponent implements OnInit {
     }
   }
 
+  /**
+   * For clear search text box
+   *
+   * @memberof ToolbarComponent
+   */
   clearText() {
     this.searchText = '';
+    this.noteServ.searchText.next('');
     this.store.dispatch(resetAction());
   }
 

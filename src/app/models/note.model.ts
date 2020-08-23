@@ -4,7 +4,3 @@ export class Note {
   note: string;
   updatedOn: Date;
 }
-
-export interface AppState {
-  notes: Note[]
-}

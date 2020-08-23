@@ -1,4 +1,5 @@
-import { createReducer, on, ActionCreator } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
+
 import {
   loadNotesAction,
   addNoteAction,
@@ -11,7 +12,9 @@ import { Note } from '../../models/note.model';
 
 export let initialState: Note[] = [];
 
-  // on(notesList, state => state),
+/**
+ * create note reducer
+ */
 const _noteReducer = createReducer(initialState,
   on(loadNotesAction, (notes, payload) => {
     notes = [...payload.notes];
@@ -23,7 +26,9 @@ const _noteReducer = createReducer(initialState,
   on(updateNoteAction, (notes, payload) => {
       let newNOTE = [...notes];
       newNOTE = newNOTE.map(note => {
-        if(payload.noteId == note.noteId){
+        // Check payload noteId and store noteId
+        const isValidNoteId = payload.noteId == note.noteId;
+        if(isValidNoteId){
           return payload.note;
         }else{
           return note;
@@ -34,7 +39,9 @@ const _noteReducer = createReducer(initialState,
   on(deleteNoteAction, (notes, payload) => {
     let newNotes = [...notes];
     newNotes = newNotes.filter(note => {
-      if(payload.noteId != note.noteId){
+      // check noteId equal or not
+      const isNotValidNoteId = payload.noteId != note.noteId;
+      if(isNotValidNoteId){
         return note;
       }
     });

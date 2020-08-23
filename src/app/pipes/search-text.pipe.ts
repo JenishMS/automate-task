@@ -1,6 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 
+import { NOTE_CONST } from '../constants/note.constants';
+
 @Pipe({
   name: 'searchText'
 })
@@ -16,10 +18,12 @@ export class SearchTextPipe implements PipeTransform {
    * @memberof SearchTextPipe
    */
   transform(text: string, searchText: string): SafeHtml {
-    if(searchText != ''){
+    const checksearchText = searchText != '';
+    if(checksearchText){
       let textArr = text.split(searchText);
-      if(textArr.length > 0){
-        let finalText = textArr.join('<span style="color: orange">'+ searchText +'</span>');
+      const checkArrayLength = textArr.length > 0;
+      if(checkArrayLength){
+        let finalText = textArr.join(NOTE_CONST.SPAN_TAG_OPEN+ searchText +NOTE_CONST.SPAN_TAG_CLOSE);
         return this.sanitized.bypassSecurityTrustHtml(finalText);
       }else{
         return text;
